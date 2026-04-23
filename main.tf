@@ -72,18 +72,18 @@ resource "aws_key_pair" "mtv_auth" {
 }
 
 resource "aws_instance" "dev_node" {
-    instance_type = "t2.micro"
-    ami = data.aws_ami.server_ami.id
+  instance_type = "t2.micro"
+  ami           = data.aws_ami.server_ami.id
 
-    tags = {
-        Name = "dev-node"
-    }
+  tags = {
+    Name = "dev-node"
+  }
 
-    key_name = aws_key_pair.mtv_auth.id
-    vpc_security_group_ids = [aws_security_group.mtv_sg.id]
-    subnet_id = aws_subnet.mtv_public_subnet.id
+  key_name               = aws_key_pair.mtv_auth.id
+  vpc_security_group_ids = [aws_security_group.mtv_sg.id]
+  subnet_id              = aws_subnet.mtv_public_subnet.id
 
-    root_block_device {
-        volume_size = 10
-    }
+  root_block_device {
+    volume_size = 10
+  }
 }

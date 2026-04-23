@@ -65,3 +65,8 @@ resource "aws_security_group" "mtv_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "mtv_auth" {
+  key_name   = "mtvkey"
+  public_key = file("~/.shh/mtvkey.pub")
+}

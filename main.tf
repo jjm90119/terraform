@@ -68,5 +68,5 @@ resource "aws_security_group" "mtv_sg" {
 
 resource "aws_key_pair" "mtv_auth" {
   key_name   = "mtvkey"
-  public_key = file("~/.shh/mtvkey.pub")
+  public_key = file("~/.ssh/mtvkey.pub")
 }

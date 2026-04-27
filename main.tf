@@ -77,8 +77,8 @@ resource "aws_instance" "dev_node" {
   key_name               = aws_key_pair.mtv_auth.id
   vpc_security_group_ids = [aws_security_group.mtv_sg.id]
   subnet_id              = aws_subnet.mtv_public_subnet.id
-  user_data = file("userdata.tpl")
-  
+  user_data              = file("userdata.tpl")
+
   root_block_device {
     volume_size = 10
   }
@@ -90,8 +90,8 @@ resource "aws_instance" "dev_node" {
   // Provisioners are a last resort. Tools like Ansible are better suited for configurations. Using provisioners this time as we are handling 1 server and for learning purposes.
   provisioner "local-exec" {
     command = templatefile("linux-ssh-config.tpl", {
-      hostname = self.map_public_ip
-      user = "ubuntu"
+      hostname     = self.public_ip,
+      user         = "ubuntu",
       identityfile = "~./ssh/mtvkey"
     })
     interpreter = ["bash", "-c"]

@@ -89,11 +89,11 @@ resource "aws_instance" "dev_node" {
 
   // Provisioners are a last resort. Tools like Ansible are better suited for configurations. Using provisioners this time as we are handling 1 server and for learning purposes.
   provisioner "local-exec" {
-    command = templatefile("windows-ssh-config.tpl", {
+    command = templatefile("{var.host_os}-ssh-config.tpl", {
       hostname     = self.public_ip,
       user         = "ubuntu",
       identityfile = "~/.ssh/mtvkey"
     })
-    interpreter = ["Powershell", "-Command"]
+    interpreter = var.host_os == "windows" ? ["Powershell", "-Command"] : ["bash", "-c"]
   }
 }

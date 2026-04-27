@@ -92,8 +92,7 @@ resource "aws_instance" "dev_node" {
     command = templatefile("linux-ssh-config.tpl", {
       hostname     = self.public_ip,
       user         = "ubuntu",
-      identityfile = "~./ssh/mtvkey"
+      identityfile = "~/.ssh/mtvkey"
     })
-    interpreter = ["bash", "-c"]
   }
 }
